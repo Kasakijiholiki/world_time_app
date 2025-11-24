@@ -1,7 +1,7 @@
-# World Time App - Lesson 24 Summary
+# World Time App - Lesson 25 Summary
 
 ## Project Overview
-This is a Flutter application that serves as the foundation for a world time application. In lesson 24, we implement state management and explore widget lifecycle methods.
+This is a Flutter application that serves as the foundation for a world time application. In lesson 25, we implement asynchronous programming with async/await and simulate network requests.
 
 ## What This Project Does
 
@@ -9,54 +9,56 @@ This is a Flutter application that serves as the foundation for a world time app
 - **Three Main Screens**:
   - **Home Screen** (`home.dart`): The main landing page with navigation button to location screen
   - **Loading Screen** (`loading.dart`): A screen for displaying loading states
-  - **Choose Location Screen** (`choose_location.dart`): A screen with state management demonstration
+  - **Choose Location Screen** (`choose_location.dart`): A screen demonstrating async/await programming
 
-### State Management Implementation
-- **Counter State**: Added a counter variable that tracks button presses
-- **setState Method**: Implements state updates that trigger UI rebuilds
-- **Stateful Widget Lifecycle**: Demonstrates widget initialization and build cycles
+### Asynchronous Programming
+- **Async/Await Pattern**: Implemented `getData()` method with async/await syntax
+- **Simulated Network Requests**: Used `Future.delayed()` to mimic API calls
+- **Sequential Execution**: Demonstrates how await ensures operations complete in order
+- **Console Logging**: Prints results of simulated network requests
+
+### Technical Implementation
+- **Future.delayed()**: Simulates network latency with 3-second and 2-second delays
+- **Async Function**: `getData()` marked as async to enable await usage
+- **String Results**: Returns mock data ('yoshi' and 'vegan, musician & egg collector')
+- **Lifecycle Integration**: Called from initState() to run when screen loads
 
 ### Widget Lifecycle
-- **initState()**: Overridden to run initialization code when widget is created
-- **build()**: Called whenever state changes to rebuild the UI
-- **Console Logging**: Added print statements to track lifecycle events
-
-### UI Components
-- **ElevatedButton**: Interactive button that increments counter on press
-- **Dynamic Text**: Displays current counter value that updates in real-time
-- **Navigation**: Maintains navigation system from previous lessons
+- **initState()**: Calls getData() method when widget initializes
+- **Console Output**: Shows execution order with print statements
+- **Non-blocking UI**: Async operations don't block the main thread
 
 ## Purpose of This Lesson
-This lesson focuses on understanding state management and widget lifecycle:
-- Implementing state variables in StatefulWidget
-- Using setState() to update UI
-- Understanding when initState() and build() methods are called
-- Practicing state-driven UI updates
+This lesson focuses on understanding asynchronous programming in Flutter:
+- Implementing async/await syntax for handling asynchronous operations
+- Simulating network requests with Future.delayed()
+- Understanding how await ensures sequential execution
+- Practicing non-blocking UI operations
 
 ## Technical Implementation Details
-- **State Variable**: `int counter = 0` tracks button presses
-- **State Updates**: `setState(() { counter += 1; })` increments counter
-- **Lifecycle Methods**: initState() runs once, build() runs on every state change
-- **UI Binding**: Text widget dynamically displays counter value
+- **Async Method**: `void getData() async` enables await usage
+- **Await Operations**: Two sequential await calls with different delays
+- **Simulated Data**: Mock username and bio data
+- **Execution Flow**: initState() → getData() → sequential awaits → print result
 
 ## Next Steps (Future Lessons)
-- Implement actual time data fetching from API
-- Add location selection functionality with real data
-- Display real time information on home screen
-- Implement data passing between screens
-- Add loading states and error handling
+- Implement actual world time API integration
+- Add real location data and time zone information
+- Display actual time data on home screen
+- Implement error handling for network requests
+- Add loading indicators during async operations
 
 ## Project Status
-✅ **Completed in Lesson 24**:
-- State management with counter example
-- Widget lifecycle method implementation
-- Dynamic UI updates with setState()
-- Interactive button with state changes
+✅ **Completed in Lesson 25**:
+- Async/await programming implementation
+- Simulated network requests with Future.delayed()
+- Sequential execution demonstration
+- Non-blocking UI operations
 
 🔄 **To Be Implemented**:
-- Time data fetching from world time API
-- Location selection with real data
-- Real time display functionality
-- Data persistence between app sessions
+- Real world time API integration
+- Location selection with actual data
+- Time display functionality
+- Error handling and loading states
 
-This project now demonstrates fundamental Flutter state management concepts and is ready for implementing real-world time functionality in subsequent lessons.
+This project now demonstrates fundamental asynchronous programming concepts in Flutter and is ready for implementing real API calls in subsequent lessons.
