@@ -1,7 +1,7 @@
-# World Time App - Lesson 34 Summary
+# World Time App - Lesson 35 Summary
 
 ## Project Overview
-This is a Flutter application that serves as the foundation for a world time application. In lesson 34, we implement multiple location selection with a scrollable list and data passing between screens.
+This is a Flutter application that serves as the foundation for a world time application. In lesson 35, we implement flag icons for countries and enhance the location selection experience with visual country representation.
 
 ## What This Project Does
 
@@ -9,31 +9,37 @@ This is a Flutter application that serves as the foundation for a world time app
 - **Three Main Screens**:
   - **Home Screen** (`home.dart`): Displays current location time with dynamic backgrounds
   - **Loading Screen** (`loading.dart`): Professional loading with enhanced retry logic and mock data option
-  - **Choose Location Screen** (`choose_location.dart`): Scrollable list of multiple world cities
+  - **Choose Location Screen** (`choose_location.dart`): Scrollable list with country flag icons
 
-### Multiple Location Support
-- **Location List**: 8 different cities worldwide (London, Athens/Berlin, Cairo, Nairobi, Chicago, New York, Seoul, Jakarta)
-- **Dynamic Selection**: Users can tap any location to update the displayed time
-- **Scrollable Interface**: ListView.builder for efficient rendering of location cards
-- **Visual Indicators**: Each location has a colored circle avatar with the first letter
+### Flag Icon Implementation
+- **Country Flags**: Each location displays its national flag using asset images
+- **Visual Country Representation**: Users can now see flags instead of colored circles
+- **Asset Image Loading**: Flag images loaded from `assets/flags/` directory
+- **Enhanced User Experience**: Visual recognition aids location selection
+
+### Location Selection Features
+- **8 Global Locations**: London, Athens, Cairo, Nairobi, Chicago, New York, Seoul, Jakarta
+- **Flag Visualization**: Country flags (UK, Greece, Egypt, Kenya, USA, South Korea, Indonesia)
+- **Dynamic Updates**: Location selection triggers real-time API calls and UI updates
 
 ### Enhanced Navigation & Data Flow
-- **Bidirectional Navigation**: Home → Location → Home with data updates
-- **Data Passing**: Results returned via Navigator.pop() with location, time, and daytime data
-- **State Updates**: Home screen dynamically updates when location is changed
-- **Initial Route**: Still starts with loading screen for better UX
+- **Bidirectional Navigation**: Home → Location → Home with data and flag updates
+- **Data Preservation**: Flag information maintained across screen transitions
+- **State Updates**: Home screen dynamically updates location, time, and flag data
+- **Asset Integration**: Proper handling of image assets with fallback support
 
 ### Visual Improvements
 - **Gradient Backgrounds**: Dynamic day/night color schemes based on time
-- **Professional Loading**: Enhanced loading screen with progress feedback and retry options
-- **Location Cards**: Material Design cards with proper spacing and touch feedback
-- **Typography**: Consistent styling across all screens
+- **Country Flag Icons**: Visual representation of nations in location selection
+- **Material Design**: Consistent card styling with flag icons and proper touch feedback
+- **Asset Management**: Organized flag images in dedicated directory structure
 
 ## Technical Implementation Details
-- **ListView.builder**: Efficient rendering for location list
-- **Navigator Results**: Using await to capture data from pushed screens
-- **State Management**: setState() updates for dynamic UI changes
-- **Color-coded Avatars**: Dynamic colors using hash codes and color primaries
+- **AssetImage Loading**: `AssetImage('assets/${locations[index].flag}')` for flag display
+- **Data Preservation**: Flag information maintained in route arguments
+- **CircleAvatar Widgets**: Background images for professional flag presentation
+- **State Management**: setState() for dynamic location and flag updates
+- **Error Handling**: Enhanced retry logic with user-interactive recovery
 - **Error Handling**: Enhanced retry logic with 3-attempt maximum and mock data fallback
 
 ## Data Flow Architecture

@@ -53,14 +53,8 @@ class _ChooseLocationState extends State<ChooseLocation> {
                   },
                   title: Text(locations[index].location),
                   leading: CircleAvatar(
-                    backgroundColor: Colors.primaries[
-                        locations[index].location.hashCode %
-                            Colors.primaries.length],
-                    child: Text(
-                      locations[index].location[0].toUpperCase(),
-                      style: TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
+                    backgroundImage:
+                        AssetImage('assets/${locations[index].flag}'),
                   ),
                 ),
               ),

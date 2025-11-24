@@ -8,25 +8,30 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Map data = {};
 
+//  @override
+//  void initState() {
+//    super.initState();
+//  }
+
   @override
   Widget build(BuildContext context) {
-    data = ModalRoute.of(context)?.settings.arguments as Map? ?? {};
+    data = data.isNotEmpty
+        ? data
+        : (ModalRoute.of(context)?.settings.arguments as Map?) ?? {};
 
-    // set background with fallback to gradient if images fail
-    bool isDaytime = data['isDaytime'] ?? true;
-    Color primaryColor = isDaytime ? Colors.blue : Colors.indigo[900]!;
-    Color secondaryColor = isDaytime ? Colors.blue[300]! : Colors.indigo[700]!;
+    // set background image
+    String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
+    Color bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700]!;
 
     return Scaffold(
+      backgroundColor: bgColor,
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [primaryColor, secondaryColor],
-            ),
-          ),
+              image: DecorationImage(
+            image: AssetImage('assets/$bgImage'),
+            fit: BoxFit.cover,
+          )),
           child: Padding(
             padding: const EdgeInsets.fromLTRB(0, 120.0, 0, 0),
             child: Column(
@@ -37,18 +42,23 @@ class _HomeState extends State<Home> {
                         await Navigator.pushNamed(context, '/location');
                     if (result != null) {
                       setState(() {
-                        data = result;
+                        data = {
+                          'time': result['time'],
+                          'location': result['location'],
+                          'isDaytime': result['isDaytime'],
+                          'flag': result['flag']
+                        };
                       });
                     }
                   },
                   icon: Icon(
                     Icons.edit_location,
-                    color: Colors.white70,
+                    color: Colors.grey[300],
                   ),
                   label: Text(
                     'Edit Location',
                     style: TextStyle(
-                      color: Colors.white70,
+                      color: Colors.grey[300],
                     ),
                   ),
                 ),
@@ -57,7 +67,7 @@ class _HomeState extends State<Home> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      data['location'] ?? 'Berlin',
+                      data['location'],
                       style: TextStyle(
                         fontSize: 28.0,
                         letterSpacing: 2.0,
@@ -67,13 +77,8 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 SizedBox(height: 20.0),
-                Text(
-                  data['time'] ?? 'Loading...',
-                  style: TextStyle(
-                    fontSize: 66.0,
-                    color: Colors.white,
-                  ),
-                ),
+                Text(data['time'],
+                    style: TextStyle(fontSize: 66.0, color: Colors.white)),
               ],
             ),
           ),
