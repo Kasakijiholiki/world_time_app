@@ -1,51 +1,59 @@
-# World Time App - Lesson 22 Summary
+# World Time App - Lesson 23 Summary
 
 ## Project Overview
-This is a Flutter application that serves as the foundation for a world time application. In lesson 22, we establish the basic structure and screens for the app.
+This is a Flutter application that serves as the foundation for a world time application. In lesson 23, we implement navigation between screens and enhance the UI.
 
 ## What This Project Does
 
 ### Current Implementation
 - **Three Main Screens**:
-  - **Home Screen** (`home.dart`): The main landing page of the application
+  - **Home Screen** (`home.dart`): The main landing page with navigation button to location screen
   - **Loading Screen** (`loading.dart`): A screen for displaying loading states
-  - **Choose Location Screen** (`choose_location.dart`): A screen for selecting different time zones (currently empty)
+  - **Choose Location Screen** (`choose_location.dart`): A styled screen for selecting different time zones
+
+### Navigation System
+- **Route Configuration**: Named routes defined in main.dart:
+  - `/` → Loading screen
+  - `/home` → Home screen (initial route)
+  - `/location` → Choose Location screen
+- **Navigation**: Uses `Navigator.pushNamed()` for screen transitions
+- **Navigation Button**: Edit Location button on home screen navigates to location screen
+
+### UI Enhancements
+- **Styled App Bar**: Choose Location screen has a blue app bar with centered title
+- **Background Colors**: Grey background for location screen
+- **Material Design**: Uses Material Design components and styling
 
 ### Technical Structure
-- **Main Entry Point**: `main.dart` initializes the Flutter app with MaterialApp and sets Home as the initial screen
-- **State Management**: Uses StatefulWidget for screens that will need to manage state in future lessons
-- **Navigation Ready**: The app structure is prepared for navigation between screens
-
-### Current State (Lesson 22)
-- All screens contain placeholder text for testing
-- Basic widget structure is in place
-- No actual time functionality or API integration yet
-- Navigation between screens is not implemented in this lesson
+- **Main Entry Point**: `main.dart` configures MaterialApp with named routes
+- **State Management**: Uses StatefulWidget for screens that need state management
+- **Navigation Ready**: Full navigation system implemented between all screens
 
 ## Purpose of This Lesson
-This lesson focuses on setting up the foundational structure of the world time app. It establishes:
-- The project file organization
-- Basic screen layouts
-- State management patterns
-- Preparation for future functionality
+This lesson focuses on implementing navigation and enhancing the UI:
+- Setting up named routes for screen navigation
+- Implementing navigation between screens
+- Adding basic UI styling and theming
+- Creating a functional navigation flow
 
 ## Next Steps (Future Lessons)
-- Implement navigation between screens
-- Add world time API integration
-- Display actual time data
-- Implement location selection functionality
-- Add time zone conversion features
+- Implement actual time data fetching from API
+- Add location selection functionality
+- Display real time information on home screen
+- Add loading states and error handling
+- Implement time zone conversion features
 
 ## Project Status
-✅ **Completed in Lesson 22**:
-- Basic app structure
-- Screen creation
-- Project organization
+✅ **Completed in Lesson 23**:
+- Navigation system with named routes
+- Screen transitions between all pages
+- Basic UI styling and theming
+- Functional navigation button
 
 🔄 **To Be Implemented**:
-- Time data fetching
-- Location selection
-- UI enhancements
-- Navigation logic
+- Time data fetching from world time API
+- Location selection and data passing
+- Real time display functionality
+- Enhanced UI with actual time data
 
-This project serves as the starting point for building a fully functional world time application in subsequent lessons.
+This project now has a complete navigation system and is ready for time functionality implementation in subsequent lessons.
