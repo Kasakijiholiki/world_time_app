@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:world_time_app/services/world_time.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -54,95 +55,29 @@ class _LoadingState extends State<Loading> {
   }
 
   void setupWorldTime() async {
-    try {
-      WorldTime instance = WorldTime(
-          location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
+    WorldTime instance = WorldTime(
+        location: 'Berlin', flag: 'germany.png', url: 'Europe/Berlin');
 
-      // Update loading text from service messages
-      instance.loadingMessage = 'Initializing WorldTime service...';
-      setState(() => loadingText = instance.loadingMessage);
-
-      await Future.delayed(Duration(milliseconds: 300));
-
-      // Get time data - this will update instance.loadingMessage
-      bool success = await instance.getTime();
-
-      if (success && mounted) {
-        // Success - reset counter and navigate to home
-        retryCount = 0;
-        Navigator.pushReplacementNamed(context, '/home', arguments: {
-          'location': instance.location,
-          'flag': instance.flag,
-          'time': instance.time,
-          'isDaytime': instance.isDaytime
-        });
+    // Listen to loading message updates
+    Timer.periodic(Duration(milliseconds: 100), (timer) {
+      if (mounted && instance.isLoading) {
+        setState(() => loadingText = instance.loadingMessage);
       } else {
-        // Increment retry count
-        retryCount++;
-
-        if (retryCount < maxRetries) {
-          // Handle errors - retry
-          setState(() {
-            loadingText =
-                'Failed to load time data (Attempt ${retryCount}/${maxRetries})';
-          });
-
-          // Show error for 2 seconds, then retry
-          Future.delayed(Duration(seconds: 2), () {
-            if (mounted) {
-              setState(() => loadingText =
-                  'Retrying... (${retryCount + 1}/${maxRetries})');
-              setupWorldTime(); // Retry
-            }
-          });
-        } else {
-          // Max retries reached - show final failure
-          setState(() {
-            loadingText =
-                'Failed to load time data after ${maxRetries} attempts. Please check your connection.';
-          });
-
-          // Optional: Show error for a longer time, then maybe show a retry button
-          Future.delayed(Duration(seconds: 5), () {
-            if (mounted) {
-              // Could add a retry button here or navigate to an error screen
-              setState(() => loadingText = 'Tap to retry');
-              // For now, just keep the failed message
-            }
-          });
-        }
+        timer.cancel();
       }
-    } catch (e) {
-      // Increment retry count for exceptions too
-      retryCount++;
+    });
 
-      if (retryCount < maxRetries) {
-        setState(() => loadingText =
-            'Network error (Attempt ${retryCount}/${maxRetries}). Retrying...');
+    // Get time data - WorldTime service handles retries internally
+    await instance.getTime();
 
-        // Retry after delay
-        Future.delayed(Duration(seconds: 2), () {
-          if (mounted) {
-            setState(() {
-              loadingText = 'Retrying... (${retryCount + 1}/${maxRetries})';
-            });
-            setupWorldTime();
-          }
-        });
-      } else {
-        // Max retries reached - final failure
-        setState(() {
-          loadingText =
-              'Failed to load time data after ${maxRetries} attempts. Please check your internet connection.';
-        });
-
-        // Optional: Show error for a longer time
-        Future.delayed(Duration(seconds: 5), () {
-          if (mounted) {
-            setState(() => loadingText = 'Failed - Please restart the app');
-          }
-        });
-      }
+    if (mounted) {
+      // Navigate to home regardless of success/failure (mock data used on failure)
+      Navigator.pushReplacementNamed(context, '/home', arguments: {
+        'location': instance.location,
+        'flag': instance.flag,
+        'time': instance.time,
+        'isDaytime': instance.isDaytime
+      });
     }
   }
 

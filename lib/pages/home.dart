@@ -8,10 +8,10 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   Map data = {};
 
-//  @override
-//  void initState() {
-//    super.initState();
-//  }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,13 @@ class _HomeState extends State<Home> {
           child: Column(
             children: <Widget>[
               TextButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/location');
+                onPressed: () async {
+                  final result = await Navigator.pushNamed(context, '/location');
+                  if (result != null) {
+                    setState(() {
+                      data = result as Map;
+                    });
+                  }
                 },
                 icon: Icon(Icons.edit_location),
                 label: Text('Edit Location'),
