@@ -22,11 +22,7 @@ class _HomeState extends State<Home> {
     // set background image
     String bgImage = data['isDaytime'] ? 'day.png' : 'night.png';
     Color bgColor = data['isDaytime'] ? Colors.blue : Colors.indigo[700]!;
-
-    // set background color based on time of day
-    Color bgColor =
-        data['isDaytime'] ? Colors.blue : Colors.indigo[700] ?? Colors.indigo;
-
+ 
     return Scaffold(
       backgroundColor: bgColor,
       body: SafeArea(
