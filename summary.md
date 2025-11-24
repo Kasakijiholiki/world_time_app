@@ -1,64 +1,78 @@
-# World Time App - Lesson 25 Summary
+# World Time App - Lesson 26 Summary
 
 ## Project Overview
-This is a Flutter application that serves as the foundation for a world time application. In lesson 25, we implement asynchronous programming with async/await and simulate network requests.
+This is a Flutter application that serves as the foundation for a world time application. In lesson 26, we implement real HTTP API integration and JSON data parsing.
 
 ## What This Project Does
 
 ### Current Implementation
 - **Three Main Screens**:
   - **Home Screen** (`home.dart`): The main landing page with navigation button to location screen
-  - **Loading Screen** (`loading.dart`): A screen for displaying loading states
-  - **Choose Location Screen** (`choose_location.dart`): A screen demonstrating async/await programming
+  - **Loading Screen** (`loading.dart`): A screen that makes real HTTP API calls and parses JSON data
+  - **Choose Location Screen** (`choose_location.dart`): A clean screen for future location selection
 
-### Asynchronous Programming
-- **Async/Await Pattern**: Implemented `getData()` method with async/await syntax
-- **Simulated Network Requests**: Used `Future.delayed()` to mimic API calls
-- **Sequential Execution**: Demonstrates how await ensures operations complete in order
-- **Console Logging**: Prints results of simulated network requests
+### HTTP API Integration
+- **HTTP Package**: Added `http: ^1.6.0` dependency for making network requests
+- **Real API Call**: Loading screen now calls JSONPlaceholder API (`https://jsonplaceholder.typicode.com/todos/1`)
+- **JSON Parsing**: Uses `jsonDecode()` to parse API response into Dart Map
+- **Data Extraction**: Extracts and prints specific fields from JSON response
 
 ### Technical Implementation
-- **Future.delayed()**: Simulates network latency with 3-second and 2-second delays
-- **Async Function**: `getData()` marked as async to enable await usage
-- **String Results**: Returns mock data ('yoshi' and 'vegan, musician & egg collector')
-- **Lifecycle Integration**: Called from initState() to run when screen loads
+- **Stateful Loading Screen**: Converted Loading from StatelessWidget to StatefulWidget
+- **Async HTTP Request**: Uses `await get()` with `Uri.parse()` for API calls
+- **Response Handling**: Processes HTTP response and decodes JSON data
+- **Console Output**: Prints full JSON response and specific field (`title`)
 
-### Widget Lifecycle
-- **initState()**: Calls getData() method when widget initializes
-- **Console Output**: Shows execution order with print statements
-- **Non-blocking UI**: Async operations don't block the main thread
+### API Response Example
+When the app runs, it fetches and displays:
+```json
+{
+  "userId": 1,
+  "id": 1,
+  "title": "delectus aut autem",
+  "completed": false
+}
+```
+Console output shows:
+- Full JSON object
+- Specific field: `delectus aut autem`
 
 ## Purpose of This Lesson
-This lesson focuses on understanding asynchronous programming in Flutter:
-- Implementing async/await syntax for handling asynchronous operations
-- Simulating network requests with Future.delayed()
-- Understanding how await ensures sequential execution
-- Practicing non-blocking UI operations
+This lesson focuses on implementing real HTTP API integration:
+- Adding external dependencies to Flutter project
+- Making actual network requests with HTTP package
+- Parsing JSON responses into Dart objects
+- Handling asynchronous API calls in Flutter
+- Converting StatelessWidget to StatefulWidget for state management
 
 ## Technical Implementation Details
-- **Async Method**: `void getData() async` enables await usage
-- **Await Operations**: Two sequential await calls with different delays
-- **Simulated Data**: Mock username and bio data
-- **Execution Flow**: initState() → getData() → sequential awaits → print result
+- **Dependency Management**: Added HTTP package to pubspec.yaml
+- **API Endpoint**: JSONPlaceholder todos endpoint for testing
+- **Response Type**: `Response` object containing status code and body
+- **JSON Decoding**: `jsonDecode()` converts JSON string to Dart Map
+- **Data Access**: Map indexing to extract specific fields
 
 ## Next Steps (Future Lessons)
-- Implement actual world time API integration
-- Add real location data and time zone information
-- Display actual time data on home screen
-- Implement error handling for network requests
-- Add loading indicators during async operations
+- Implement actual world time API (WorldTimeAPI.org)
+- Add location selection with real time zone data
+- Display actual time information on home screen
+- Implement error handling for network failures
+- Add loading indicators and user feedback
+- Pass data between screens using navigation
 
 ## Project Status
-✅ **Completed in Lesson 25**:
-- Async/await programming implementation
-- Simulated network requests with Future.delayed()
-- Sequential execution demonstration
-- Non-blocking UI operations
+✅ **Completed in Lesson 26**:
+- HTTP package integration and dependency management
+- Real API calls with JSONPlaceholder
+- JSON response parsing and data extraction
+- Stateful widget for API operations
+- Proper async/await implementation
 
 🔄 **To Be Implemented**:
-- Real world time API integration
-- Location selection with actual data
-- Time display functionality
+- WorldTimeAPI.org integration for actual time data
+- Location selection with real cities and time zones
+- Time display on home screen
 - Error handling and loading states
+- Data persistence and state management
 
-This project now demonstrates fundamental asynchronous programming concepts in Flutter and is ready for implementing real API calls in subsequent lessons.
+This project now demonstrates real HTTP API integration and is ready for implementing world time functionality with actual time data in subsequent lessons.
